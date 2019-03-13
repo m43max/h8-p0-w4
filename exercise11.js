@@ -1,38 +1,23 @@
-function shoppingTime(memberId = "", money = 0) {
-    if(memberId === ""){
-        return "Mohon maaf, toko X hanya berlaku untuk member saja"
-    }
-    if(money < 50000){
-        return "Mohon maaf, uang tidak cukup"
-    }
-    var out = {memberId, money, listPurchased: [], changeMoney: 0}
+var inventory = [
+    ["Sepatu Stacattu", 1500000],
+    ["Baju Zoro", 500000],
+    ["Baju H&N", 250000],
+    ["Sweater Uniklooh", 175000],
+    ["Casing Handphone", 50000]
+]
 
-    var i = money
-    while(i>=50000){
-        if(i>=1500000){
-            i -= 1500000
-            out.listPurchased.push("Sepatu Stacattu")
+function shoppingTime(memberId = "", money = 0) {
+    if(memberId === "") return "Mohon maaf, toko X hanya berlaku untuk member saja"
+    if(money < 50000) return "Mohon maaf, uang tidak cukup"
+    var out = {memberId, money, listPurchased: [], changeMoney: 0}
+    var m = money
+    for(var i=0; i<inventory.length; i++){
+        if(m>=inventory[i][1]){
+            m -= inventory[i][1]
+            out.listPurchased.push(inventory[i][0])
         }
-        if(i>=500000){
-            i -= 500000
-            out.listPurchased.push("Baju Zoro")
-        }
-        if(i>=250000){
-            i -= 250000
-            out.listPurchased.push("Baju H&N")
-        }
-        if(i>=175000){
-            i -= 175000
-            out.listPurchased.push("Sweater Uniklooh")
-        }
-        if(i>=50000){
-            i -= 50000
-            out.listPurchased.push("Casing Handphone")
-        }
-        break
     }
-    out.changeMoney = i
-    
+    out.changeMoney = m
     return out
 }
 

@@ -3,44 +3,32 @@ var inventory = [['Sepatu Stacattu', 1500000, 10], ['Baju Zoro', 500000, 2], ['S
 function names(arr, product){
     var stock
     var price
-    if(product===inventory[0][0]) {stock = inventory[0][2]; price = inventory[0][1]}
-    else if(product===inventory[1][0]) {stock = inventory[1][2]; price = inventory[1][1]}
-    else if(product===inventory[2][0]) {stock = inventory[2][2]; price = inventory[2][1]}
-
+    if(product===inventory[0][0])      {stock = inventory[0][2]; price = inventory[0][1]}    //Sepatu Stacattu
+    else if(product===inventory[1][0]) {stock = inventory[1][2]; price = inventory[1][1]}    //Baju Zoro
+    else if(product===inventory[2][0]) {stock = inventory[2][2]; price = inventory[2][1]}    //Sweater Uniklooh
     var out = [[],0,0]
     for(var i=0; i<arr.length; i++){
         if(arr[i].product === product && stock - arr[i].amount>=0){
             out[0].push(arr[i].name)
-            stock -= arr[i].amount
-            out[2] += arr[i].amount    //number of units sold
+            stock -= arr[i].amount    //decrease remaining stock
+            out[2] += arr[i].amount    //increase number of units sold
         }
     }
     out[1] = stock    //leftOver
-    out[2] *= price    //totalProfit (AKA revenue)
+    out[2] *= price    //returns totalProfit (AKA revenue)
     return out
 }
 
 function countProfit(shoppers) {
     if(shoppers.length<1) return []
-    var shoes = {
-        product: "Sepatu Stacattu",
-        shoppers: names(shoppers, "Sepatu Stacattu")[0],
-        leftOver: names(shoppers, "Sepatu Stacattu")[1],
-        totalProfit: names(shoppers, "Sepatu Stacattu")[2]
-    }
-    var shirt = {
-        product: "Baju Zoro",
-        shoppers: names(shoppers, "Baju Zoro")[0],
-        leftOver: names(shoppers, "Baju Zoro")[1],
-        totalProfit: names(shoppers, "Baju Zoro")[2]
-    }
-    var sweater = {
-        product: "Sweater Uniklooh",
-        shoppers: names(shoppers, "Sweater Uniklooh")[0],
-        leftOver: names(shoppers, "Sweater Uniklooh")[1],
-        totalProfit: names(shoppers, "Sweater Uniklooh")[2]
-    }    
-    return [shoes, shirt, sweater]
+    var fshirt = names(shoppers, "Sepatu Stacattu")
+    var fshoes = names(shoppers, "Baju Zoro")
+    var fsweat = names(shoppers, "Sweater Uniklooh")
+    return [
+        {product: "Sepatu Stacattu",  shoppers: fshirt[0], leftOver: fshirt[1], totalProfit: fshirt[2]},
+        {product: "Baju Zoro",        shoppers: fshoes[0], leftOver: fshoes[1], totalProfit: fshoes[2],},
+        {product: "Sweater Uniklooh", shoppers: fsweat[0], leftOver: fsweat[1], totalProfit: fsweat[2]}
+    ]
 }
 
 // TEST CASES
