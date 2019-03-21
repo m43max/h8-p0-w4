@@ -1,5 +1,5 @@
 function angkaPrima(angka) {
-    if(angka<0) return false    //negative numbers cannot be prime
+    if(angka<2) return false
     for(var i=2; i<angka; i++){
         if(angka%i===0){
             return false
